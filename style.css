@@ -37,7 +37,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#app { display: flex; height: 100vh; overflow: hidden; }
+#app { display: flex; height: 100vh; height: 100dvh; overflow: hidden; }
+
+.backdrop { display: none; }
 
 /* ---------- Sidebar ---------- */
 #sidebar {
@@ -234,9 +236,38 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 
 .hidden { display: none !important; }
 
+/* Touch-устройства: нет :hover, поэтому скрытые до наведения действия
+   (меню чата, «копировать») показываем постоянно. */
+@media (hover: none) {
+  .history-item .menu-btn { opacity: 1; }
+  .msg-meta { opacity: 1; }
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 720px) {
-  #sidebar { position: absolute; z-index: 20; height: 100%; box-shadow: 0 0 40px #0008; }
-  #sidebar.collapsed { margin-left: -270px; box-shadow: none; }
+  #sidebar {
+    position: absolute; z-index: 30; height: 100%;
+    width: min(86vw, 300px);
+    box-shadow: 0 0 40px #0008;
+  }
+  #sidebar.collapsed { margin-left: -300px; box-shadow: none; }
+
+  /* затемнение под открытой панелью */
+  #sidebar:not(.collapsed) ~ .backdrop {
+    display: block; position: absolute; inset: 0; z-index: 20;
+    background: rgba(0, 0, 0, .5);
+  }
+
+  #topbar { padding: 10px 12px; padding-top: max(10px, env(safe-area-inset-top)); }
+  #topbar .title { font-size: 14px; }
+  #topbar .muted { display: none; }
+
+  .msg-row { padding: 14px 12px; }
+  .msg { gap: 10px; }
   .msg, .composer-inner, .hint { max-width: 100%; }
+
+  #composer { padding: 10px 12px max(8px, env(safe-area-inset-bottom)); }
+  /* 16px, чтобы iOS не зумил при фокусе на поле */
+  #input { font-size: 16px; }
+  .hint { font-size: 10px; }
 }

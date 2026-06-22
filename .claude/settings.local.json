@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(code /Users/ivan/Projects/local_llm_chat)"
+      "Bash(code /Users/ivan/Projects/local_llm_chat)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Добавил контекстное меню управления чатом *)"
     ]
   }
 }
