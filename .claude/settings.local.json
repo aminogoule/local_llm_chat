@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(code /Users/ivan/Projects/local_llm_chat)"
+    ]
+  }
+}
